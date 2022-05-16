@@ -1,5 +1,8 @@
 package com.example.payroll.employee;
 
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
@@ -10,9 +13,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -56,10 +58,22 @@ class EmployeeControllerAcceptanceTest {
     }
 
     @Test
-    void () {
+    void shouldUpdateEmployee() throws Exception {
+        mockMvc.perform(put("/employees/3")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\n" +
+                                "    \"name\": \"Samwise Gamgee\",\n" +
+                                "    \"role\": \"ring bearer\"\n" +
+                                "}"))
+                .andDo(print())
+                .andExpect(status().isCreated())
+                .andExpect(content().string(equalTo("{\"id\":6,\"firstName\":\"Samwise\",\"lastName\":\"Gamgee\",\"role\":\"ring bearer\",\"name\":\"Samwise Gamgee\",\"_links\":{\"self\":{\"href\":\"http://localhost/employees/6\"},\"employees\":{\"href\":\"http://localhost/employees\"}}}")));
     }
 
     @Test
-    void deleteEmployee() {
+    void shouldDeleteAnEmployee() throws Exception {
+        mockMvc.perform(delete("/employees/1"))
+                .andDo(print())
+                .andExpect(status().isNoContent());
     }
 }
