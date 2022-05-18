@@ -4,7 +4,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class MakeOrderResponse implements Serializable {
+public class PlaceOrderResponse implements Serializable {
 
     private String message;
     private boolean success;

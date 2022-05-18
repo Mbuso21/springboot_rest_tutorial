@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -14,8 +15,8 @@ public class Order {
     @NotEmpty(message = "Customer name is required")
     private String name;
     @NotEmpty(message = "Description is required")
-    private OrderDescription description;
-    private Date date;
+    private String description;
+    private String date;
     private Status status;
 
 

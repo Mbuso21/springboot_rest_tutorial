@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class MakeOrderRequest {
+public class PlaceOrderRequest {
     @NotNull(message = "Order details required")
     private Order order;
 }
