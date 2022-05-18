@@ -47,7 +47,7 @@ class EmployeeControllerAcceptanceTest {
     @Test
     void shouldAddANewEmployee() throws Exception {
         mockMvc.perform(post("/employees")
-                        .contentType(MediaType.APPLICATION_JSON)
+                            .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n" +
                                 "    \"name\": \"Samwise Gamgee\",\n" +
                                 "    \"role\": \"gardener\"\n" +
