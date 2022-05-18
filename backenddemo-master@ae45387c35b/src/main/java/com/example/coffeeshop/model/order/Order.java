@@ -12,9 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order {
-    @NotEmpty(message = "Customer name is required")
     private String name;
-    @NotEmpty(message = "Description is required")
     private String description;
     private String date;
     private Status status;

@@ -1,4 +1,4 @@
-package com.example.coffeeshop.controller;
+package com.example.coffeeshop.controller.customer;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

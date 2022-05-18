@@ -41,7 +41,6 @@ public class CustomerServiceImpl implements CustomerService {
         CustomerEntity customerEntity = new CustomerEntity();
 
         BeanUtils.copyProperties(customer,customerEntity);
-        System.out.println(customerEntity);
         CustomerEntity dbResponse =  customerRepo.save(customerEntity);
         log.info("Db reponse -> {}", dbResponse);
 

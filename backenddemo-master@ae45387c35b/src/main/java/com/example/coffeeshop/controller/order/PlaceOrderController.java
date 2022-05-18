@@ -33,7 +33,7 @@ public class PlaceOrderController {
         Order newOrder = newOrder(requestString);
         placeOrderRequest.setOrder(newOrder);
 
-        return null;
+        return ResponseEntity.ok(orderService.placeOrder(placeOrderRequest.getOrder()));
     }
 
     public static JSONObject convertJsonStringToObject(String jasonString) {
@@ -45,8 +45,7 @@ public class PlaceOrderController {
         JSONObject jsonObject = convertJsonStringToObject(requestString);
         String name = jsonObject.getString("name");
         String description = jsonObject.getString("description");
-        String date = jsonObject.getString("null");
 
-        return new Order(name,description,date, Status.PENDING);
+        return new Order(name,description,"null", Status.PENDING);
     }
 }

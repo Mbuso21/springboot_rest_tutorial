@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Order")
+@Table(name = "Orders")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,7 +20,7 @@ public class OrderEntity {
     private int orderID;
     @Column()
     private String name;
-    private OrderDescription description;
-    private Date date;
+    private String description;
+    private String date;
     private Status status;
 }
