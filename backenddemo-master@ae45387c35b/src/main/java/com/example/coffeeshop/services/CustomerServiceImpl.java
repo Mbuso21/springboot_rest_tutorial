@@ -2,9 +2,8 @@ package com.example.coffeeshop.services;
 
 import com.example.coffeeshop.entities.CustomerEntity;
 import com.example.coffeeshop.model.customer.Customer;
-import com.example.coffeeshop.model.customer.CustomerLoginRequest;
-import com.example.coffeeshop.model.customer.CustomerLoginResponse;
-import com.example.coffeeshop.model.customer.RegisterResponse;
+import com.example.coffeeshop.model.customer.CustomerRequest;
+import com.example.coffeeshop.model.customer.CustomerResponse;
 import com.example.coffeeshop.repos.CustomerRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -23,9 +22,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public RegisterResponse registerCustomer(Customer customer) {
-        RegisterResponse response = new RegisterResponse();
+    public CustomerResponse registerCustomer(Customer customer) {
 
+        CustomerResponse response = new CustomerResponse();
         if(!checkCustomerDetailsCorrect(customer)) {
             response.setMessage("Failed. Details are incorrect");
             response.setSuccess(false);
@@ -54,15 +53,15 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerLoginResponse login(CustomerLoginRequest customerLoginRequest) {
+    public CustomerResponse login(CustomerRequest customerRequest) {
 
-        CustomerEntity customer = customerRepo.findByNameEquals(customerLoginRequest.getCustomerName());
-        CustomerLoginResponse response = new CustomerLoginResponse();
+        CustomerEntity customer = customerRepo.findByNameEquals(customerRequest.getCustomerName());
+        CustomerResponse response = new CustomerResponse();
         response.setSuccess(false);
         if(Objects.nonNull(customer))
         {
 
-            if(customer.getPassword().equals(customerLoginRequest.getPassword()))
+            if(customer.getPassword().equals(customerRequest.getPassword()))
             {
                 response.setSuccess(true);
                 response.setMessage("customer authenticated.");

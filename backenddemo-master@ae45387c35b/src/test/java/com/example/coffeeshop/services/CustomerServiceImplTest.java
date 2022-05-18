@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerServiceImplTest {
 
-    private final CustomerRepo customerRepo = null;
     CustomerService customerService =new CustomerServiceImpl(null);
 
     // Test checkCustomerDetailsCorrect method

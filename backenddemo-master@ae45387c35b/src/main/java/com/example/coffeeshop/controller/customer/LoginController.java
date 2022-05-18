@@ -1,8 +1,8 @@
 package com.example.coffeeshop.controller.customer;
 
 
-import com.example.coffeeshop.model.customer.CustomerLoginRequest;
-import com.example.coffeeshop.model.customer.CustomerLoginResponse;
+import com.example.coffeeshop.model.customer.CustomerRequest;
+import com.example.coffeeshop.model.customer.CustomerResponse;
 import com.example.coffeeshop.services.CustomerService;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.http.MediaType;
@@ -23,15 +23,15 @@ public class LoginController {
     }
 
     @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CustomerLoginResponse> login(@RequestBody String loginRequestString) throws JSONException {
+    public ResponseEntity<CustomerResponse> login(@RequestBody String loginRequestString) throws JSONException {
 
-        CustomerLoginRequest customerLoginRequest = new CustomerLoginRequest();
+        CustomerRequest customerRequest = new CustomerRequest();
         String name = convertJsonStringToObject(loginRequestString).get("name").toString();
         String password = convertJsonStringToObject(loginRequestString).get("password").toString();
-        customerLoginRequest.setCustomerName(name);
-        customerLoginRequest.setPassword(password);
+        customerRequest.setCustomerName(name);
+        customerRequest.setPassword(password);
 
 
-        return ResponseEntity.ok(customerService.login(customerLoginRequest));
+        return ResponseEntity.ok(customerService.login(customerRequest));
     }
 }

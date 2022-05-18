@@ -1,4 +1,4 @@
-package com.example.coffeeshop.model.order;
+package com.example.coffeeshop.model.order.placeorders;
 
 import lombok.Data;
 import java.io.Serializable;

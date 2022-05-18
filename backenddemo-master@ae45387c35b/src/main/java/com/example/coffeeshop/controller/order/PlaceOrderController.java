@@ -1,8 +1,8 @@
 package com.example.coffeeshop.controller.order;
 
 import com.example.coffeeshop.model.order.Order;
-import com.example.coffeeshop.model.order.PlaceOrderRequest;
-import com.example.coffeeshop.model.order.PlaceOrderResponse;
+import com.example.coffeeshop.model.order.placeorders.PlaceOrderRequest;
+import com.example.coffeeshop.model.order.placeorders.PlaceOrderResponse;
 import com.example.coffeeshop.model.order.Status;
 import com.example.coffeeshop.services.OrderService;
 import org.springframework.boot.configurationprocessor.json.JSONException;
@@ -28,12 +28,9 @@ public class PlaceOrderController {
     @PostMapping(value = "/order", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PlaceOrderResponse> placeOrder(@RequestBody String requestString) throws JSONException {
 
-        System.out.println(requestString);
-        PlaceOrderRequest placeOrderRequest = new PlaceOrderRequest();
         Order newOrder = newOrder(requestString);
-        placeOrderRequest.setOrder(newOrder);
 
-        return ResponseEntity.ok(orderService.placeOrder(placeOrderRequest.getOrder()));
+        return ResponseEntity.ok(orderService.placeOrder(newOrder));
     }
 
     public static JSONObject convertJsonStringToObject(String jasonString) {
