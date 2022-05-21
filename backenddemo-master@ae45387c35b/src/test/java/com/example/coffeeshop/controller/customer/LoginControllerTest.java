@@ -31,7 +31,7 @@ class LoginControllerTest {
                                 "    \"password\": \"1234\"\n" +
                                 "}"))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isBadRequest())
                 .andExpect(content().string(equalTo("{" +
                         "\"message\":\"failed to authenticate customer\"," +
                         "\"success\":false" +
@@ -49,7 +49,7 @@ class LoginControllerTest {
                                 "    \"password\": \"1234\"\n" +
                                 "}"))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(content().string(equalTo("{\"message\":\"Success.\",\"success\":true}")));
 
         // Login Customer

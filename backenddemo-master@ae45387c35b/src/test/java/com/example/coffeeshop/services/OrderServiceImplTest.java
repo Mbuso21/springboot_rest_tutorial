@@ -1,6 +1,5 @@
 package com.example.coffeeshop.services;
 
-import com.example.coffeeshop.repos.OrderRepo;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -10,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class OrderServiceImplTest {
 
-    OrderService orderService = new OrderServiceImpl(null);
+    OrderService orderService = new OrderServiceImpl(null, null);
 
     @Test
     void nowDateInCorrectFormatTest() {

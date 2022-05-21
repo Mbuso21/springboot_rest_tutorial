@@ -31,7 +31,7 @@ class RegisterControllerTest {
                                 "    \"password\": \"1234\"\n" +
                                 "}"))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(content().string(equalTo("{" +
                         "\"message\":\"Success.\"," +
                         "\"success\":true" +
@@ -49,7 +49,7 @@ class RegisterControllerTest {
                                 "    \"password\": \"1234\"\n" +
                                 "}"))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(content().string(equalTo("{" +
                         "\"message\":\"Success.\"," +
                         "\"success\":true" +
@@ -63,7 +63,7 @@ class RegisterControllerTest {
                                 "    \"password\": \"1234\"\n" +
                                 "}"))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(content().string(equalTo("{" +
                         "\"message\":\"Success.\"," +
                         "\"success\":true" +
@@ -80,7 +80,7 @@ class RegisterControllerTest {
                                 "    \"password\": \"1234\"\n" +
                                 "}"))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isBadRequest())
                 .andExpect(content().string(equalTo("{" +
                         "\"message\":\"Failed. Details are incorrect\"," +
                         "\"success\":false" +
@@ -97,7 +97,7 @@ class RegisterControllerTest {
                                 "    \"password\": \"\"\n" +
                                 "}"))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isBadRequest())
                 .andExpect(content().string(equalTo("{" +
                         "\"message\":\"Failed. Details are incorrect\"," +
                         "\"success\":false" +
@@ -115,7 +115,7 @@ class RegisterControllerTest {
                                 "    \"password\": \"1234\"\n" +
                                 "}"))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(content().string(equalTo("{\"message\":\"Success.\",\"success\":true}")));
 
         // Try registering Franco again should fail
@@ -126,13 +126,11 @@ class RegisterControllerTest {
                                 "    \"password\": \"1234\"\n" +
                                 "}"))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isBadRequest())
                 .andExpect(content().string(equalTo("{" +
                         "\"message\":" +
                                     "\"Failed. Customer already registered\"," +
                         "\"success\"" +
                                     ":false}")));
     }
-
-
 }

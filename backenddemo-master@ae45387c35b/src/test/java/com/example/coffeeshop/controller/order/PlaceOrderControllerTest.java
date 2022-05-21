@@ -8,6 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -17,7 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 class PlaceOrderControllerTest {
-
     @Autowired
     private MockMvc mockMvc;
 
@@ -30,7 +32,7 @@ class PlaceOrderControllerTest {
                                 "    \"description\":\"americano\"\n" +
                                 "}"))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(content().string(equalTo("{" +
                         "\"message\":\"Success.\"," +
                         "\"success\":true" +
@@ -47,7 +49,7 @@ class PlaceOrderControllerTest {
                                 "    \"description\":\"americano\"\n" +
                                 "}"))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isBadRequest())
                 .andExpect(content().string(equalTo("{" +
                         "\"message\":\"Failed. No customer name.\"," +
                         "\"success\":false" +
@@ -64,7 +66,7 @@ class PlaceOrderControllerTest {
                                 "    \"description\":\"\"\n" +
                                 "}"))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isBadRequest())
                 .andExpect(content().string(equalTo("{" +
                         "\"message\":\"Failed. No description.\"," +
                         "\"success\":false" +
@@ -81,7 +83,7 @@ class PlaceOrderControllerTest {
                                 "    \"description\":\"\"\n" +
                                 "}"))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isBadRequest())
                 .andExpect(content().string(equalTo("{" +
                         "\"message\":\"Failed. No details.\"," +
                         "\"success\":false" +

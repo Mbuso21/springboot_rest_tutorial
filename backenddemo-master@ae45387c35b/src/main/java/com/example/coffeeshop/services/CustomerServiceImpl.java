@@ -7,6 +7,9 @@ import com.example.coffeeshop.model.customer.CustomerResponse;
 import com.example.coffeeshop.repos.CustomerRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -43,8 +46,6 @@ public class CustomerServiceImpl implements CustomerService {
         CustomerEntity dbResponse =  customerRepo.save(customerEntity);
         log.info("Db reponse -> {}", dbResponse);
 
-        //todo: check for success and return the apropriate response
-
 
         response.setMessage("Success.");
         response.setSuccess(true);
@@ -58,17 +59,11 @@ public class CustomerServiceImpl implements CustomerService {
         CustomerEntity customer = customerRepo.findByNameEquals(customerRequest.getCustomerName());
         CustomerResponse response = new CustomerResponse();
         response.setSuccess(false);
-        if(Objects.nonNull(customer))
+        if(Objects.nonNull(customer) && customer.getPassword().equals(customerRequest.getPassword()))
         {
-
-            if(customer.getPassword().equals(customerRequest.getPassword()))
-            {
-                response.setSuccess(true);
-                response.setMessage("customer authenticated.");
-                return  response;
-            }
-
-
+            response.setSuccess(true);
+            response.setMessage("customer authenticated.");
+            return  response;
         }
         response.setMessage("failed to authenticate customer");
 
@@ -85,4 +80,32 @@ public class CustomerServiceImpl implements CustomerService {
         if(customerRepo.findByNameEquals(customer.getName()) == null) return false;
         return customer.getName().equals(customerRepo.findByNameEquals(customer.getName()).getName());
     }
+
+    @Override
+    public HttpStatus setHttpStatus(CustomerResponse response, String endPoint) {
+        if(endPoint.equals("register") && response.isSuccess()) {
+            return HttpStatus.CREATED;
+        }
+        if(response.isSuccess()) return HttpStatus.OK;
+        return HttpStatus.BAD_REQUEST;
+    }
+
+    @Override
+    public JSONObject convertJsonStringToObject(String jasonString) {
+        try {
+            return new JSONObject(jasonString);
+        } catch (Exception e) {return null;}
+    }
+
+    @Override
+    public Customer newCustomer(String jsonString) throws JSONException {
+
+        JSONObject jsonObject = convertJsonStringToObject(jsonString);
+        String name = jsonObject.get("name").toString();
+        String password = jsonObject.get("password").toString();
+
+        return new Customer(name, password);
+    }
+
+
 }
