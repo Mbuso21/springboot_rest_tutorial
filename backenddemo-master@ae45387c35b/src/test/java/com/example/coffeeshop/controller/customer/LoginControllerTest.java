@@ -27,7 +27,7 @@ class LoginControllerTest {
         mockMvc.perform(post("/coffeeshop/v1/customer/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n" +
-                                "    \"name\": \"Hlubi\",\n" +
+                                "    \"customerName\": \"Hlubi\",\n" +
                                 "    \"password\": \"1234\"\n" +
                                 "}"))
                 .andDo(print())
@@ -45,7 +45,7 @@ class LoginControllerTest {
         mockMvc.perform(post("/coffeeshop/v1/customer/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n" +
-                                "    \"name\": \"Nombuso\",\n" +
+                                "    \"customerName\": \"Nombuso\",\n" +
                                 "    \"password\": \"1234\"\n" +
                                 "}"))
                 .andDo(print())
@@ -56,7 +56,7 @@ class LoginControllerTest {
         mockMvc.perform(post("/coffeeshop/v1/customer/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n" +
-                                "    \"name\": \"Nombuso\",\n" +
+                                "    \"customerName\": \"Nombuso\",\n" +
                                 "    \"password\": \"1234\"\n" +
                                 "}"))
                 .andDo(print())
